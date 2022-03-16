@@ -21,7 +21,8 @@ import mainApp.views as vv
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('transactions/',vv.transactions),
+    path('transactions/',vv.transactions.as_view()),
+        path('api-auth/', include('rest_framework.urls')),
     # path('transaction/<int:pk>',vv.Transaction_details.as_view())
 
 ]

@@ -24,11 +24,10 @@ class Transaction(models.Model):
 
     actionId = models.IntegerField(choices=ActionsEnum.choices, default=15)
     team_id = models.IntegerField()
-    id = models.IntegerField(primary_key=True)
     withdrawAmount = models.IntegerField()
 
     def __str__(self):
-        return str(self.team_id) + ' ' + str(self.actionId) + ' ' + str(self.withdrawAmount)
+        return str(self.pk)+ ' '+ str(self.team_id) + ' ' + str(self.actionId) + ' ' + str(self.withdrawAmount)
 
 
 class Teams(models.Model):
