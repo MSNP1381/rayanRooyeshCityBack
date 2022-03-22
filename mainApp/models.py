@@ -11,23 +11,24 @@ class Transaction(models.Model):
         HEX = 5
         DOOZ = 6
         KARDASTI = 7
-        SIMPLEQ = 8
-        HARDQ = 9
-        MEDIUMQ = 10
-        GOLDENQ = 11
-        TANGO = 12
-        ORIGAMI = 13
-        GAME = 14
-        BALANCE = 15
-        ADD = 16
-        REMOVE = 17
+        krdastinejat = 8
+        SIMPLEQ = 9
+        HARDQ = 10
+        MEDIUMQ = 11
+        GOLDENQ = 12
+        TANGO = 13
+        ORIGAMI = 14
+        GAME = 15
+        BALANCE = 16
+        ADD = 17
+        REMOVE = 18
 
     actionId = models.IntegerField(choices=ActionsEnum.choices, default=15)
     team_id = models.IntegerField()
     withdrawAmount = models.IntegerField()
 
     def __str__(self):
-        return str(self.pk)+ ' '+ str(self.team_id) + ' ' + str(self.actionId) + ' ' + str(self.withdrawAmount)
+        return str(self.pk) + ' ' + str(self.team_id) + ' ' + str(self.actionId) + ' ' + str(self.withdrawAmount)
 
 
 class Teams(models.Model):
@@ -35,3 +36,15 @@ class Teams(models.Model):
     name1 = models.CharField(max_length=100)
     name2 = models.CharField(max_length=100)
     name3 = models.CharField(max_length=100)
+
+
+class Sections(models.Model):
+    game_id = models.IntegerField()
+    section_id = models.IntegerField()
+    title = models.CharField(max_length=100)
+    is_two = models.BooleanField(default=False)
+    enter_amount = models.IntegerField(default=-70)
+    win_amount=models.IntegerField(default=100)
+
+    def __str__(self):
+        return self.title

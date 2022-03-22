@@ -18,12 +18,15 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
 import mainApp.views as vv
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('transactions/',vv.transactions.as_view()),
-        path('api-auth/', include('rest_framework.urls')),
-    # path('transaction/<int:pk>',vv.Transaction_details.as_view())
-
+    path('transactions/', vv.transactions),
+    path('api-auth/', include('rest_framework.urls')),
+    path('transactions/<int:team_id>', vv.transactions_details),
+    path('rank', vv.team_ranking),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('Sections/<int:sections_id>', vv.sections_details),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
