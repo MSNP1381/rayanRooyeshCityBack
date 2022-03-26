@@ -18,12 +18,13 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
 import mainApp.views as vv
-
+from rest_framework_simplejwt import views as jwt_views
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('transactions/', vv.transactions),
-    path('api-auth/', include('rest_framework.urls')),
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('transactions/<int:team_id>', vv.transactions_details),
     path('rank', vv.team_ranking),
     path('accounts/', include('django.contrib.auth.urls')),

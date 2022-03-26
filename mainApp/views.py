@@ -17,11 +17,11 @@ from django.db.models.functions import RowNumber
 
 
 @api_view(['GET', 'POST'])
-@authentication_classes([BasicAuthentication])
+# @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def transactions(request):
     if request.method == 'GET':
-        result = (Transaction.objects.all()       .values('actionId','team_id','withdrawAmount'). annotate(id=Window(
+        result = (Transaction.objects.all().values('actionId', 'team_id', 'withdrawAmount').annotate(id=Window(
             expression=RowNumber())))
         serializer = TransactionSerializer(result, many=True)
         return Response(serializer.data)
@@ -37,9 +37,8 @@ def transactions(request):
 @api_view(['GET'])
 def transactions_details(req, team_id):
     try:
-        trans =( Transaction.objects.filter(team_id=team_id).values('actionId','team_id','withdrawAmount').
-            annotate(id=Window(
-            expression=RowNumber())))
+        trans = (Transaction.objects.filter(team_id=team_id).values('actionId', 'team_id', 'withdrawAmount').annotate(
+            id=Window(expression=RowNumber())))
     except Transaction.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if req.method == 'GET':
@@ -48,7 +47,7 @@ def transactions_details(req, team_id):
 
 
 @api_view(['GET'])
-@authentication_classes([BasicAuthentication])
+# @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def team_ranking(req):
     try:
