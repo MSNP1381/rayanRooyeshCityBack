@@ -1,16 +1,16 @@
 from django.db.models import F, Sum, Window
-from rest_framework.decorators import api_view, authentication_classes
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
 from mainApp.models import Transaction, Sections
 from mainApp.Serializers import TransactionSerializer, SectionSerializer
-from django.http import JsonResponse
-from rest_framework.views import APIView
+
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.db.models.functions import RowNumber
-
+from django.contrib.auth.models import User
 
 # authentication_classes = [SessionAuthentication, BasicAuthentication]
 # permission_classes = [IsAuthenticated]
@@ -80,3 +80,11 @@ def sections_details(req, sections_id):
     if req.method == 'GET':
         serializer = SectionSerializer(result, many=True)
         return Response(serializer.data)
+@api_view(['POST'])
+def is_admin(request):
+    data=request.data
+    print(100*"#")
+    print(data)
+    # print(User.is_staff(data['username']))
+    print(User.objects.get(username=data['username']).is_staff)
+    return JsonResponse(User.objects.get(username=data['username']).is_staff,safe=False)

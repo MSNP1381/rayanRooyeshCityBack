@@ -29,5 +29,8 @@ urlpatterns = [
     path('rank', vv.team_ranking),
     path('accounts/', include('django.contrib.auth.urls')),
     path('Sections/<int:sections_id>', vv.sections_details),
+    path('is_admin', vv.is_admin),
+
+    
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
